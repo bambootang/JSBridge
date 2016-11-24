@@ -8,18 +8,23 @@
     2、可靠，依赖于系统支持的JavaScriptInterface注入方式进行扩展  
     3、能进行function异步回调.  
 
-**接入步骤:**  
+**接入步骤:**    
+
 1.在工程的build.gradle中引入框架：  
- ` compile 'com.bamboo.talkweb:jsbridge:0.1'  `  
+  
+    compile 'com.bamboo.talkweb:jsbridge:0.3'
    
 2.在需要注入JSBridge的地方加入以下代码  
- ` JSBridgeClient.registerJSBridge(webView, injectedObj, bridgeName); `  
-  ps：以上代码必须要在webview.loadurl 完成之前调用  
   
-3.在网页中调用  
- ` if (typeof(__JSBridgeNative) != "undefined" && typeof(__JSBridgeNative.linkBridge) != "undefined") {`    
- 　　` __JSBridgeNative.linkBridge();`  
- `} `  
+    JSBridgeClient.registerJSBridge(webView, injectedObj, bridgeName);  
+ 
+  ps：以上代码必须要在webview.loadurl 完成之前调用 
+  
+3.在网页中调用    
+  
+    if (typeof(bridgeName) != "undefined" && typeof(bridgeName.linkBridge) != "undefined") { 
+        bridgeName.linkBridge(); 
+    } 
   
     
-具体可参考[jsbridge－sample](https://github.com/kerwinT/JSBridge)
+具体可参考[jsbridge－sample](https://github.com/kerwinT/JSBridge/tree/dev/jsbridge-sample)
