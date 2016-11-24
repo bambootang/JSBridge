@@ -10,7 +10,7 @@
 
 **接入步骤:**    
 
-1.在工程的build.gradle中引入框架：  
+1.在工程的build.gradle中引入框架：
   
     compile 'com.bamboo.talkweb:jsbridge:0.3'
    
@@ -27,4 +27,6 @@
     } 
   
     
-具体可参考[jsbridge－sample](https://github.com/kerwinT/JSBridge/tree/dev/jsbridge-sample)
+具体可参考
+[jsbridge－sample](https://github.com/kerwinT/JSBridge/tree/dev/jsbridge-sample)
+[JSBridge的详细使用方式](https://github.com/kerwinT/JSBridge/wiki)
