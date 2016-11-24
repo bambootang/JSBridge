@@ -50,18 +50,9 @@
         </div>
         <button onclick="__JSBridgeNative.showToast('我是Toast');">测试</button>
     </li>
+
     <li>
-        Toast测试<br/>
-        代码：<br/>
-        <div>
-            __JSBridgeNative.showToast('我是Toast',function(text){console.log(text)});
-        </div>
-        <button onclick="__JSBridgeNative.showToast('我是Toast',function(text){console.log(text)});">
-            测试
-        </button>
-    </li>
-    <li>
-        Toast测试<br/>
+        Toast测试2<br/>
         代码：<br/>
         <div>
             __JSBridgeNative2.showToast();
@@ -69,57 +60,13 @@
         <button onclick="__JSBridgeNative2.showToast();">测试</button>
     </li>
 
-
-    <li>
-        确认框弹出<br/>
-        代码：<br/>
-        <div>
-            __JSBridgeNative2.alert('我是alert','我是alert的message','button0,button1',function(button){console.log('user
-            choose '+button)});
-        </div>
-        <button onclick="__JSBridgeNative2.alert('我是alert','我是alert的message','button0,button1',function(button){console.log('choose '+button)});">
-            测试
-        </button>
-    </li>
-
-    <li>
-        提示框弹出<br/>
-        代码：<br/>
-        <div>
-            __JSBridgeNative2.alert('我是alert','我是alert的message',null,null);
-        </div>
-        <button onclick="__JSBridgeNative2.alert('我是alert','我是alert的message','确定',function(){});">
-            测试
-        </button>
-    </li>
-
-    <li>
-        跳到第二个页面<br/>
-        代码：<br/>
-        <div>
-            window.location.href='file:///android_asset/test1.0_.html';
-        </div>
-        <button onclick="window.location.href='file:///android_asset/test1.0_.html';">
-            测试
-        </button>
-    </li>
-
     <script>
     if (typeof(__JSBridgeNative) != "undefined" && typeof(__JSBridgeNative.linkBridge) != "undefined") {
          __JSBridgeNative.linkBridge();
     }
-
     if (typeof(__JSBridgeNative2) != "undefined" && typeof(__JSBridgeNative2.linkBridge) != "undefined") {
          __JSBridgeNative2.linkBridge();
     }
-
-    function showConsole(text,text1,text2,text3){
-        console.log(text);
-        console.log(text1);
-        console.log(text2);
-        console.log(text3);
-    }
-
     </script>
 </ul>
 
