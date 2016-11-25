@@ -27,6 +27,8 @@ public class SampleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         webView = (WebView) findViewById(R.id.webview);
         JSBridgeClient.registerJSBridge(webView, new BridgeTest(), "__JSBridgeNative");
+        JSBridgeClient.registerJSBridge(webView, new BridgeTest3(), "__JSBridgeNative3");
+        JSBridgeClient.registerJSBridge(webView, new BridgeTest4(), "__JSBridgeNative4");
         JSBridgeClient.registerJSBridge(webView, new BridgeTest2(this, webView), "__JSBridgeNative2");
         webView.loadUrl("file:///android_asset/test1.0.html");
         webView.setWebViewClient(new WebViewClient() {
@@ -41,6 +43,24 @@ public class SampleActivity extends AppCompatActivity {
     public void onClick(View view) {
         JSBridgeClient.invokeJsMethod(webView, "showConsole", "text", "text01");
     }
+
+    public class BridgeTest4 {
+
+        @JavascriptInterface
+        public void showToast() {
+            Toast.makeText(SampleActivity.this, "BridgeTest4", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public class BridgeTest3 {
+
+
+        @JavascriptInterface
+        public void showToast() {
+            Toast.makeText(SampleActivity.this, "BridgeTest3", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     public class BridgeTest2 extends ActivityWebLogicApi {
 

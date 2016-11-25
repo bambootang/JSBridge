@@ -5,6 +5,8 @@
     <title>测试的网页</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, target-densitydpi=medium-dpi, user-scalable=no">
+    <!--文件引入的方式加载JSBridge-->
+    <script src="file:///android_asset/testBridge.js" type="text/javascript"></script>
     <style>
         .entry{
         -webkit-padding-start: 30px;
@@ -33,6 +35,12 @@
         color: #111111;
         }
     </style>
+
+    <script>
+    if (typeof(__JSBridgeNative) != "undefined" && typeof(__JSBridgeNative.linkBridge) != "undefined") {
+         __JSBridgeNative.linkBridge('__JSBridgeNative');
+    }
+    </script>
 </head>
 
 <body>
@@ -67,6 +75,24 @@
             __JSBridgeNative2.showToast();
         </div>
         <button onclick="__JSBridgeNative2.showToast();">测试</button>
+    </li>
+
+    <li>
+        Toast3测试<br/>
+        代码：<br/>
+        <div>
+            __JSBridgeNative.api.showToast();
+        </div>
+        <button onclick="__JSBridgeNative.api.showToast();">测试</button>
+    </li>
+
+    <li>
+        Toast4测试<br/>
+        代码：<br/>
+        <div>
+            __JSBridge.ui.showToast();
+        </div>
+        <button onclick="__JSBridge.ui.showToast();">测试</button>
     </li>
 
 
@@ -105,13 +131,27 @@
     </li>
 
     <script>
-    if (typeof(__JSBridgeNative) != "undefined" && typeof(__JSBridgeNative.linkBridge) != "undefined") {
-         __JSBridgeNative.linkBridge();
-    }
 
-    if (typeof(__JSBridgeNative2) != "undefined" && typeof(__JSBridgeNative2.linkBridge) != "undefined") {
-         __JSBridgeNative2.linkBridge();
+    <!--显性的调用注入代码-->
+    if (typeof(__JSBridgeNative3) != "undefined" && typeof(__JSBridgeNative3.linkBridge) != "undefined") {
+         __JSBridgeNative.api=new function(){};
+         __JSBridgeNative3.linkBridge('__JSBridgeNative.api');
+    }else{
+         throw "__JSBridgeNative3 is undefined!"
     }
+    <!--if (typeof(__JSBridgeNative4) != "undefined" && typeof(__JSBridgeNative4.linkBridge) != "undefined") {-->
+         <!--__JSBridge= {};-->
+         <!--__JSBridge.ui = {};-->
+         <!--__JSBridgeNative4.linkBridge('__JSBridge.ui');-->
+    <!--}else{-->
+         <!--throw "__JSBridgeNative4 is undefined!"-->
+    <!--}-->
+
+    <!--if (typeof(__JSBridgeNative2) != "undefined" && typeof(__JSBridgeNative2.linkBridge) != "undefined") {-->
+         <!--__JSBridgeNative2.linkBridge('__JSBridgeNative2');-->
+    <!--}else{-->
+         <!--throw "__JSBridgeNative2 is undefined!"-->
+    <!--}-->
 
     function showConsole(text,text1,text2,text3){
         console.log(text);
@@ -119,6 +159,9 @@
         console.log(text2);
         console.log(text3);
     }
+
+
+
 
     </script>
 </ul>

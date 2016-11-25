@@ -12,11 +12,11 @@
 
 1.在工程的build.gradle中引入框架：
   
-    compile 'com.bamboo.talkweb:jsbridge:0.3.1'
+    compile 'com.bamboo.talkweb:jsbridge:0.3.2'
    
 2.在需要注入JSBridge的地方加入以下代码  
   
-    JSBridgeClient.registerJSBridge(webView, injectedObj, bridgeName);  
+    JSBridgeClient.registerJSBridge(webView, injectedObj, bridgeName);
  
   ps：以上代码必须要在webview.loadurl 完成之前调用 
   
@@ -27,6 +27,8 @@
     } 
   
     
-具体可参考
-[jsbridge－sample](https://github.com/kerwinT/JSBridge/tree/dev/jsbridge-sample)
+最佳实践可参考
+
+[jsbridge-sample](https://github.com/kerwinT/JSBridge/tree/dev/jsbridge-sample)
+
 [JSBridge的详细使用方式](https://github.com/kerwinT/JSBridge/wiki)

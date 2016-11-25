@@ -30,31 +30,7 @@ public class JsCallJava {
             }
             mInjectedName = injectedName;
             mInjectedCls = injectedCls;
-            mMethodsMap = new HashMap<String, Method>();
-            //获取自身声明的所有方法（包括public private protected）， getMethods会获得所有继承与非继承的方法
-            Class clsz = injectedCls.getClass();
-            Method[] methods = clsz.getMethods();
-            StringBuilder sb = new StringBuilder("javascript:(function(b,obj){console.log(\"");
-            sb.append(mInjectedName);
-            sb.append(" initialization begin\");var a={queue:[],callback:function(){var d=Array.prototype.slice.call(arguments,0);var c=d.shift();var e=d.shift();this.queue[c].apply(this,d);if(!e){delete this.queue[c]}}};");
-            for (Method method : methods) {
-                String sign;
-                if (method.getAnnotation(JavascriptInterface.class) == null || (method.getModifiers() | Modifier.PUBLIC) == 0 || (sign = genJavaMethodSign(method)) == null) {
-                    continue;
-                }
-                mMethodsMap.put(sign, method);
-                sb.append(String.format("a.%s=", method.getName()));
-            }
-            sb.append("function(){var f=Array.prototype.slice.call(arguments,0);if(f.length<1){throw\"");
-            sb.append(mInjectedName);
-            sb.append(" call error, message:miss method name\"}var e=[];for(var h=1;h<f.length;h++){var c=f[h];var j=typeof c;e[e.length]=j;if(j==\"function\"){var d=a.queue.length;a.queue[d]=c;f[h]=d}}var g=JSON.parse(obj.invokeJavaMethod(JSON.stringify({method:f.shift(),types:e,args:f})));if(g.code!=200){throw\"");
-            sb.append(mInjectedName);
-            sb.append(" call error, code:\"+g.code+\", message:\"+g.result}return g.result};Object.getOwnPropertyNames(a).forEach(function(d){var c=a[d];if(typeof c===\"function\"&&d!==\"callback\"){a[d]=function(){return c.apply(a,[d].concat(Array.prototype.slice.call(arguments,0)))}}});b.");
-            sb.append(mInjectedName);
-            sb.append("=a;console.log(\"");
-            sb.append(mInjectedName);
-            sb.append(" initialization end\")})(window," + mInjectedName + ");");
-            mPreloadInterfaceJS = sb.toString();
+
         } catch (Exception e) {
             Log.e(TAG, "init js error:" + e.getMessage());
         }
@@ -88,7 +64,32 @@ public class JsCallJava {
         return sign;
     }
 
-    public String getPreloadInterfaceJS() {
+    public String getPreloadInterfaceJS(String InjectedName) {
+        mMethodsMap = new HashMap<String, Method>();
+        //获取自身声明的所有方法（包括public private protected）， getMethods会获得所有继承与非继承的方法
+        Class clsz = mInjectedCls.getClass();
+        Method[] methods = clsz.getMethods();
+        StringBuilder sb = new StringBuilder("javascript:(function(b,obj){console.log(\"");
+        sb.append(InjectedName);
+        sb.append(" initialization begin\");var a={queue:[],callback:function(){var d=Array.prototype.slice.call(arguments,0);var c=d.shift();var e=d.shift();this.queue[c].apply(this,d);if(!e){delete this.queue[c]}}};");
+        for (Method method : methods) {
+            String sign;
+            if (method.getAnnotation(JavascriptInterface.class) == null || (method.getModifiers() | Modifier.PUBLIC) == 0 || (sign = genJavaMethodSign(method)) == null) {
+                continue;
+            }
+            mMethodsMap.put(sign, method);
+            sb.append(String.format("a.%s=", method.getName()));
+        }
+        sb.append("function(){var f=Array.prototype.slice.call(arguments,0);if(f.length<1){throw\"");
+        sb.append(InjectedName);
+        sb.append(" call error, message:miss method name\"}var e=[];for(var h=1;h<f.length;h++){var c=f[h];var j=typeof c;e[e.length]=j;if(j==\"function\"){var d=a.queue.length;a.queue[d]=c;f[h]=d}}var g=JSON.parse(obj.invokeJavaMethod(JSON.stringify({method:f.shift(),types:e,args:f})));if(g.code!=200){throw\"");
+        sb.append(InjectedName);
+        sb.append(" call error, code:\"+g.code+\", message:\"+g.result}return g.result};Object.getOwnPropertyNames(a).forEach(function(d){var c=a[d];if(typeof c===\"function\"&&d!==\"callback\"){a[d]=function(){return c.apply(a,[d].concat(Array.prototype.slice.call(arguments,0)))}}});b.");
+        sb.append(InjectedName);
+        sb.append("=a;console.log(\"");
+        sb.append(InjectedName);
+        sb.append(" initialization end\")})(window," + mInjectedName + ");");
+        mPreloadInterfaceJS = sb.toString();
         return mPreloadInterfaceJS;
     }
 

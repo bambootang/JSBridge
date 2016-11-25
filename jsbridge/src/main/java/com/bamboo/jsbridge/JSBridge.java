@@ -37,10 +37,10 @@ public class JSBridge {
      * 注入本地js桥。
      */
     @JavascriptInterface
-    public void linkBridge() {
+    public void linkBridge(final String injectedName) {
         TaskExecutor.runTaskOnUiThread(new Runnable() {
             public void run() {
-                webView.loadUrl(getJsCallJava().getPreloadInterfaceJS());
+                webView.loadUrl(getJsCallJava().getPreloadInterfaceJS(injectedName));
             }
         });
     }
