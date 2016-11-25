@@ -19,14 +19,16 @@
     JSBridgeClient.registerJSBridge(webView, injectedObj, bridgeName);
  
   ps：以上代码必须要在webview.loadurl 完成之前调用 
-  
-3.在网页中调用    
+
+3.在网页中注入
   
     if (typeof(bridgeName) != "undefined" && typeof(bridgeName.linkBridge) != "undefined") { 
         bridgeName.linkBridge(); 
-    } 
-  
-    
+    }
+4.在网页中使用
+
+    bridgeName.showToast('我是Toast');
+
 最佳实践可参考
 
 [jsbridge-sample](https://github.com/kerwinT/JSBridge/tree/dev/jsbridge-sample)
