@@ -12,7 +12,7 @@
 
 1.在工程的build.gradle中引入框架：
   
-    compile 'com.bamboo.talkweb:jsbridge:0.3'
+    compile 'com.bamboo.talkweb:jsbridge:0.3.1'
    
 2.在需要注入JSBridge的地方加入以下代码  
   
